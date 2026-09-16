@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyGotChi | ตารางอ่านหนังสือ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Kanit:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=10" />
+  </head>
+  <body>
+    <div class="login-backdrop" id="loginBackdrop">
+      <form class="login-card" id="loginForm" novalidate>
+        <div class="login-mark">✦</div>
+        <span class="eyebrow">STUDY SPACE</span>
+        <h1>ยินดีต้อนรับกลับ</h1>
+        <p>เข้าสู่ StudyGotChi เพื่อดูตารางและดูแลเพื่อนอ่านหนังสือของคุณ</p>
+        <label>ชื่อผู้ใช้<input name="username" autocomplete="username" required placeholder="ชื่อผู้ใช้" /></label>
+        <label>รหัสผ่าน<input name="password" type="password" autocomplete="current-password" required placeholder="รหัสผ่าน" /></label>
+        <p class="login-error" id="loginError" role="alert" hidden>กรุณากรอกชื่อผู้ใช้และรหัสผ่าน</p>
+        <button class="login-button" type="submit">เข้าสู่ระบบ</button>
+        <small>โหมดทดลอง: ข้อมูลจะไม่ถูกบันทึก</small>
+      </form>
+    </div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand"><span class="brand-mark">✦</span><span>StudyGotChi</span></div>
+        <button class="create-button" id="createButton"><span>＋</span> สร้างตาราง</button>
+
+        <div class="mini-calendar" id="miniCalendar"></div>
+
+        <section class="pet-panel" aria-labelledby="petName">
+          <div class="pet-panel-heading"><span class="eyebrow">เพื่อนอ่านหนังสือ</span><span class="pet-level" id="petLevel">LV. 1</span></div>
+          <div class="pet-screen"><div class="pixel-pet" id="pixelPet" aria-label="สัตว์เลี้ยงของคุณ"><span class="pet-ear left"></span><span class="pet-ear right"></span><span class="pet-eye left"></span><span class="pet-eye right"></span><span class="pet-mouth"></span></div><span class="pet-z" id="petZ">Z</span></div>
+          <h2 id="petName">Chibi</h2>
+          <p class="pet-status" id="petStatus">พร้อมโตไปกับคุณ</p>
+          <div class="pet-stats"><span>หัวใจ <strong id="petHearts">♥♥♥</strong></span><span>อ่านครบ <strong id="petSessions">0 วัน</strong></span></div>
+          <button class="revive-button" id="revivePet" hidden>เริ่มชีวิตใหม่</button>
+        </section>
+
+        <div class="sidebar-tip"><span class="tip-icon">✦</span><div><strong>เคล็ดลับวันนี้</strong><p>อ่าน 25 นาที พัก 5 นาที ช่วยให้โฟกัสดีขึ้นนะ</p></div></div>
+        <div class="sidebar-footer"><span>Study space</span><span>v1.0</span></div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="topbar-left"><button class="today-button" id="todayButton">วันนี้</button><div class="nav-arrows"><button class="icon-button" id="prevWeek" aria-label="สัปดาห์ก่อน">‹</button><button class="icon-button" id="nextWeek" aria-label="สัปดาห์ถัดไป">›</button></div><h1 id="monthTitle">มิถุนายน 2025</h1></div>
+          <div class="topbar-right"><span class="signed-in-user" id="signedInUser"></span><button class="avatar" id="userAvatar" type="button" aria-label="เปิดหน้าเข้าสู่ระบบ">ช</button></div>
+        </header>
+
+        <section class="calendar-card">
+          <div class="week-header" id="weekHeader"><div class="timezone">GMT+7</div></div>
+          <div class="calendar-body"><div class="time-column" id="timeColumn"></div><div class="week-grid" id="weekGrid"></div><div class="current-time-line" id="currentTimeLine"><span></span></div></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="plannerBackdrop" hidden><form class="event-modal planner-modal" id="plannerForm"><div class="modal-header"><div><span class="eyebrow">วางแผนอัตโนมัติ</span><h2>จัดตารางอ่านหนังสือ</h2></div><button type="button" class="close-button" id="closePlanner" aria-label="ปิด">×</button></div><p class="modal-intro">บอกข้อมูลสั้นๆ แล้วระบบจะกระจายเวลาอ่านลงในปฏิทินให้</p><label>วิชาหรือเนื้อหาที่ต้องการอ่าน<input name="subject" required placeholder="เช่น ชีววิทยา บทที่ 1-5" /></label><label>ต้องการอ่านให้จบภายในกี่วัน<input name="days" type="number" min="1" max="60" value="7" required /></label><div class="form-row"><label>เวลาว่างเริ่ม<div class="time-picker"><input name="start" type="text" inputmode="numeric" maxlength="5" value="19:00" placeholder="19:00" aria-label="เวลาเริ่ม เช่น 19:00" required /></div></label><label>เวลาว่างถึง<div class="time-picker"><input name="end" type="text" inputmode="numeric" maxlength="5" value="20:00" placeholder="20:00" aria-label="เวลาจบ เช่น 20:00" required /></div></label></div><div class="plan-preview" id="planPreview">ระบบจะสร้างตารางอ่านวันละ 1 เซสชัน ตามช่วงเวลาที่เลือก</div><div class="modal-actions"><button type="button" class="cancel-button" id="cancelPlanner">ยกเลิก</button><button type="submit" class="save-button">สร้างตารางอัตโนมัติ</button></div></form></div>
+    <div class="modal-backdrop" id="modalBackdrop" hidden><form class="event-modal" id="eventForm"><div class="modal-header"><div><span class="eyebrow">เพิ่มตารางใหม่</span><h2 id="modalTitle">วางแผนการอ่าน</h2></div><button type="button" class="close-button" id="closeModal" aria-label="ปิด">×</button></div><label>หัวข้อ<input name="title" required placeholder="เช่น อ่านชีวะ บทที่ 3" /></label><div class="form-row"><label>วัน<select name="day" id="daySelect"></select></label><label>สี<select name="type"><option value="reading">อ่านหนังสือ</option><option value="review">ทบทวน / ทำโจทย์</option><option value="exam">สอบและเดดไลน์</option></select></label></div><div class="form-row"><label>เริ่ม<input name="start" type="time" value="09:00" required /></label><label>จบ<input name="end" type="time" value="10:00" required /></label></div><label>รายละเอียด<textarea name="description" rows="3" placeholder="โน้ตสั้นๆ สำหรับเซสชันนี้"></textarea></label><div class="modal-actions"><button type="button" class="delete-button" id="deleteEvent" hidden>ลบตาราง</button><button type="button" class="cancel-button" id="cancelModal">ยกเลิก</button><button type="submit" class="save-button">บันทึกตาราง</button></div></form></div>
+    <div class="modal-backdrop" id="reminderBackdrop" hidden><section class="event-modal reminder-modal" aria-labelledby="reminderTitle"><span class="reminder-icon">✦</span><span class="eyebrow">ถึงเวลาอ่านหนังสือแล้ว</span><h2 id="reminderTitle">เริ่มเซสชันของคุณ</h2><p id="reminderDescription"></p><div class="reminder-actions"><button type="button" class="snooze-button" id="snoozeReminder">ขออีก 5 นาที</button><button type="button" class="start-button" id="startReading">เริ่มอ่าน!!!</button></div></section></div>
+    <div class="modal-backdrop" id="timerBackdrop" hidden><section class="event-modal timer-modal" aria-labelledby="timerTitle"><span class="eyebrow">กำลังโฟกัส</span><h2 id="timerTitle"></h2><div class="countdown" id="countdown">00:00:00</div><p>ตั้งใจอ่านให้เต็มที่ แล้วค่อยพักเมื่อหมดเวลา</p><button type="button" class="finish-button" id="finishReading">จบการอ่าน</button></section></div>
+    <script src="app.js?v=10"></script>
+  </body>
+</html>
